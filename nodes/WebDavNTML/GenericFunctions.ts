@@ -49,10 +49,13 @@ export async function fileOperationHandle(
 			const fileContent = await client.getFile(path)
 			const pathParts = path.split('/')
 			const fname = pathParts[pathParts.length - 1] || 'file'
+			const fdata = Buffer.from(fileContent).toString('base64')
 			const binary_data = {
 				['data']: {
-					data: Buffer.from(fileContent).toString('base64'),
+					data: fdata,
 					fileName: fname,
+					fileExtension: fname.split('.')[fname.split('.').length - 1],
+					fileSize: `${fdata.length}`,
 					mimeType: mime.lookup(fname),
 				} as IBinaryData,
 			}
