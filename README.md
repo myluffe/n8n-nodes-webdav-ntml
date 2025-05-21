@@ -1,7 +1,5 @@
 # n8n-nodes-webdav-ntml
 
-![node logo](/webdavntlm.svg)
-
 This is an n8n community node. It lets you use WebDav with NTLM auth in your n8n workflows.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
