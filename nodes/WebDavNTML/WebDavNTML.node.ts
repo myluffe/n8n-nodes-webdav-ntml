@@ -91,19 +91,11 @@ export class WebDavNTML implements INodeType {
 			//const operation = this.getNodeParameter('operation', i) as string
 			switch (resource) {
 				case WebDavResource.FILE:
-					try {
-						returnData.push(await fileOperationHandle(this, i, items[i], client))
-					} catch (e) {
-						throw new NodeOperationError(this.getNode(), e, { itemIndex: i })
-					}
+					returnData.push(await fileOperationHandle(this, i, items[i], client))
 					break
 				case WebDavResource.FOLDER:
-					try {
-						const data = await folderOperationHandle(this, i, client)
-						data.forEach((it) => returnData.push(it))
-					} catch (e) {
-						throw new NodeOperationError(this.getNode(), e, { itemIndex: i })
-					}
+					const data = await folderOperationHandle(this, i, client)
+					data.forEach((it) => returnData.push(it))
 					break
 				default:
 					throw new NodeOperationError(
