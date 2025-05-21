@@ -1,34 +1,59 @@
 import {
-	IAuthenticateGeneric,
-	ICredentialTestRequest,
+	//IAuthenticateGeneric,
+	//ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
-} from 'n8n-workflow';
+} from 'n8n-workflow'
 
-export class ExampleCredentialsApi implements ICredentialType {
-	name = 'exampleCredentialsApi';
-	displayName = 'Example Credentials API';
+export class WebDavUserApi implements ICredentialType {
+	static CredentialName = 'webDavNTMLApi'
+
+	name = WebDavUserApi.CredentialName
+	displayName = 'WebDav NTML API'
+
 	properties: INodeProperties[] = [
-		// The credentials to get from user and save encrypted.
-		// Properties can be defined exactly in the same way
-		// as node properties.
+		{
+			displayName: 'Server',
+			name: 'server',
+			type: 'string',
+			required: true,
+			default: 'http://localhost/webdav',
+		},
 		{
 			displayName: 'User Name',
 			name: 'username',
 			type: 'string',
+			required: true,
 			default: '',
 		},
 		{
 			displayName: 'Password',
 			name: 'password',
 			type: 'string',
+			required: true,
 			typeOptions: {
 				password: true,
 			},
 			default: '',
 		},
-	];
+		{
+			displayName: 'Domain',
+			name: 'domain',
+			type: 'string',
+			required: false,
+			default: '',
+			description: 'Domain for NTLM Auth',
+		},
+		{
+			displayName: 'NTLM',
+			name: 'ntlm',
+			type: 'boolean',
+			default: true,
+			description: 'Use NTLM Auth',
+		},
+	]
 
+	/*
 	// This credential is currently not used by any node directly
 	// but the HTTP Request node can use it to make requests.
 	// The credential is also testable due to the `test` property below
@@ -49,8 +74,9 @@ export class ExampleCredentialsApi implements ICredentialType {
 	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: 'https://example.com/',
+			baseURL: '={{$credentials?.server}}',
 			url: '',
 		},
 	};
+	*/
 }
