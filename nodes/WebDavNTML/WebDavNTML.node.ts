@@ -6,6 +6,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	NodeConnectionType,
 	//NodeConnectionType,
 	NodeOperationError,
 } from 'n8n-workflow'
@@ -63,8 +64,10 @@ export class WebDavNTML implements INodeType {
 		defaults: {
 			name: 'WebDav',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-regular-node
+		inputs: ['main' as NodeConnectionType],
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
+		outputs: ['main' as NodeConnectionType],
 		credentials: [
 			{
 				name: WebDavUserApi.CredentialName,
