@@ -1,6 +1,6 @@
 # n8n-nodes-webdav-ntml
 
-![node logo](/nodes/WebDavNTML/webdavntlm.svg)
+![node logo](/webdavntlm.svg)
 
 This is an n8n community node. It lets you use WebDav with NTLM auth in your n8n workflows.
 
