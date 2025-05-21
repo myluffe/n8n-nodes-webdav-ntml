@@ -20,7 +20,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 		return WebDavTools.getUrl(this.options.url, path)
 	}
 
-	getFile(path: string): Promise<ArrayBuffer> {
+	async getFile(path: string): Promise<ArrayBuffer> {
 		const options = {
 			...this.options,
 			url: this.getUrl(path),
@@ -31,7 +31,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 				if (err) reject(err)
 				else {
 					if (res?.statusCode > 299 || res?.statusCode < 200) {
-						throw Error(`Get file opration failed with status ${res?.statusCode}`)
+						reject(new Error(`Get file opration failed with status ${res?.statusCode}`))
 					}
 					resolve(res?.body || '')
 				}
@@ -39,7 +39,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 		})
 	}
 
-	writeFile(path: string, file: Buffer): Promise<void> {
+	async writeFile(path: string, file: Buffer): Promise<void> {
 		const options = {
 			...this.options,
 			url: this.getUrl(path),
@@ -53,7 +53,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 				if (err) reject(err)
 				else {
 					if (res?.statusCode > 299 || res?.statusCode < 200) {
-						throw Error(`File creation failed with status ${res?.statusCode}`)
+						reject(new Error(`File creation failed with status ${res?.statusCode}`))
 					}
 					resolve()
 				}
@@ -61,7 +61,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 		})
 	}
 
-	deleteFile(path: string): Promise<void> {
+	async deleteFile(path: string): Promise<void> {
 		const options = {
 			...this.options,
 			url: this.getUrl(path),
@@ -71,7 +71,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 				if (err) reject(err)
 				else {
 					if (res?.statusCode > 299 || res?.statusCode < 200) {
-						throw Error(`Delete file opration failed with status ${res?.statusCode}`)
+						reject(new Error(`Delete file opration failed with status ${res?.statusCode}`))
 					}
 					resolve(res?.body || '')
 				}
@@ -79,7 +79,7 @@ export class WebDavClientNTLM implements IWebDavClient {
 		})
 	}
 
-	deleteFolder(path: string): Promise<void> {
+	async deleteFolder(path: string): Promise<void> {
 		return this.deleteFile(path)
 	}
 

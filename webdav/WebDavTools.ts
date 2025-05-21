@@ -5,7 +5,8 @@ export default class WebDavTools {
 	private constructor() {}
 
 	static getUrl(server: string, path: string) {
-		return encodeURI(`${server}${path.startsWith('/') ? path : '/' + path}`)
+		const pathDecoded = decodeURIComponent(path)
+		return encodeURI(`${server}${pathDecoded.startsWith('/') ? pathDecoded : '/' + pathDecoded}`)
 	}
 
 	static propfindHeaders(): Record<string, unknown> {
