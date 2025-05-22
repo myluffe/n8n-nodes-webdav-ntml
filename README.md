@@ -1,6 +1,7 @@
 # n8n-nodes-webdav-ntml
 
-This is an n8n community node. It lets you use WebDav with NTLM auth in your n8n workflows.
+This is an n8n community node. 
+It lets you use WebDav with NTLM or Basic auth in your n8n workflows.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -60,13 +61,16 @@ Provide
 - username
 - password
 - domain
+- ntlm option (checked by defualt)
+    - if unchecked use basic auth
 
 ## Compatibility
 
-This node created for N8N Version 1.89.2, tested on Version 1.64.3
+This node created for N8N Version 1.89.2, tested on Version 1.64.3 and 1.89.2
 
 ## Usage
 
+Operations are performed through passing the full path to a file or folder relative to the webdav root folder.
 - Add node to your workflow
 - Select resource
 - Input path
