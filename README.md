@@ -27,6 +27,7 @@ Then in node folder:
 ```
 npm install -g pnpm
 pnpm install
+pnpm run build
 pnpm link --global
 ```
 
@@ -38,7 +39,7 @@ pnpm link n8n-nodes-webdav-ntml
 
 Run:
 ```
-export N8N_CUSTOM_EXTENSIONS="/Users/alexember/Desktop/n8n/n8n-nodes-webdav-ntml"
+export N8N_CUSTOM_EXTENSIONS="[path_to_folder_with_node]"
 n8n
 ```
 
