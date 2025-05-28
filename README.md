@@ -83,4 +83,4 @@ Operations are performed through passing the full path to a file or folder relat
 
 ## Version history
 
-**v1.0** - first version
+**v0.1.*** - initail version
