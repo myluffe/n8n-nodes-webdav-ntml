@@ -1,6 +1,6 @@
 {
     "name": "n8n-nodes-webdav-ntml",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "description": "N8N node to operate wth WebDav using NTLM Negotiate",
     "keywords": [
         "n8n-community-node-package",
