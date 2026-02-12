@@ -7,7 +7,7 @@ import {
 
 export class WebDavUserApi implements ICredentialType {
 	static CredentialName = 'webDavNTMLApi'
-	icon = { light: 'file:../nodes/webdavntlm.svg', dark: 'file:../icons/webdavntlm.svg' } as Themed<IconFile>;
+	icon = { light: 'file:../nodes/webdavntlm.svg', dark: 'file:../nodes/webdavntlm.svg' } as Themed<IconFile>;
 	name = WebDavUserApi.CredentialName
 	displayName = 'WebDav NTML API'
 
