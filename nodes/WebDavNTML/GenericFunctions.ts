@@ -1,3 +1,4 @@
+/* eslint-disable @n8n/community-nodes/no-restricted-imports */
 import {
 	IBinaryData,
 	IDataObject,
@@ -5,6 +6,7 @@ import {
 	ILoadOptionsFunctions,
 	INodeExecutionData,
 	NodeOperationError,
+// eslint-disable-next-line import-x/no-unresolved
 } from 'n8n-workflow'
 import { WebDavUserApi } from '../../credentials/WebDavUserApi.credentials'
 import { WebDavClientNTLM } from '../../webdav/WebDavClientNTLM'
@@ -12,7 +14,7 @@ import IWebDavClient from '../../webdav/IWebDavClient'
 import { FileOperation } from './FileDescription'
 import { FolderOperation } from './FolderDescription'
 import { WebDavClientBasic } from '../../webdav/WebDavClientBasic'
-var mime = require('mime-types')
+import mime from 'mime-types'
 
 export async function getWebDavClient(
 	func: IExecuteFunctions | ILoadOptionsFunctions,
@@ -45,7 +47,7 @@ export async function fileOperationHandle(
 	// Get path from input
 	const path = exec.getNodeParameter('path', i) as string
 	switch (operation) {
-		case FileOperation.DOWNLOAD:
+		case FileOperation.DOWNLOAD: {
 			const fileContent = await client.getFile(path)
 			const pathParts = path.split('/')
 			const fname = pathParts[pathParts.length - 1] || 'file'
@@ -63,10 +65,11 @@ export async function fileOperationHandle(
 				json: { message: `File ${path} content is in data field` },
 				binary: binary_data,
 			} as INodeExecutionData
-		case FileOperation.WRITE:
+		}
+		case FileOperation.WRITE: {
 			// Get binary field name from input
 			const binaryfield = exec.getNodeParameter('binaryfield', i) as string
-			console.log('binary keys:', Object.keys(item.binary || {}))
+			//console.log('binary keys:', Object.keys(item.binary || {}))
 			const binaryData = item.binary?.[binaryfield]
 			if (!binaryData?.data) {
 				throw new Error(`Binary data field "${binaryfield}" not found on item ${i}.`)
@@ -76,6 +79,7 @@ export async function fileOperationHandle(
 			return {
 				message: `File ${path} wrtitten from field ${binaryfield}[${i}]`,
 			}
+		}
 		case FileOperation.DELETE:
 			await client.deleteFile(path)
 			return { message: `Deleted ${path}` }
@@ -104,9 +108,10 @@ export async function folderOperationHandle(
 					message: `Folder created: ${path}`,
 				},
 			]
-		case FolderOperation.GET:
+		case FolderOperation.GET: {
 			const flist = await client.getFileList(path)
 			return flist
+		}
 		case FolderOperation.DELETE:
 			await client.deleteFolder(path)
 			return [{ message: `Folder deleted ${path}` }]

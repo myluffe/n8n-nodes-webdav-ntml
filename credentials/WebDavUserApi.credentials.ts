@@ -1,13 +1,13 @@
 import {
-	//IAuthenticateGeneric,
-	//ICredentialTestRequest,
+	IconFile,
 	ICredentialType,
 	INodeProperties,
-} from 'n8n-workflow'
+	Themed,
+} from "n8n-workflow"
 
 export class WebDavUserApi implements ICredentialType {
 	static CredentialName = 'webDavNTMLApi'
-
+	icon = { light: 'file:../nodes/webdavntlm.svg', dark: 'file:../icons/webdavntlm.svg' } as Themed<IconFile>;
 	name = WebDavUserApi.CredentialName
 	displayName = 'WebDav NTML API'
 

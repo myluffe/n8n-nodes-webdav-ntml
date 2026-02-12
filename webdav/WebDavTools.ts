@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @n8n/community-nodes/no-restricted-imports */
 import { parseStringPromise } from 'xml2js'
 import { FileInfo } from './IWebDavClient'
 
@@ -73,6 +75,7 @@ export default class WebDavTools {
 						((props['iscollection'] || [name.includes('.') ? '1' : '0']) as unknown[])[0] == '1',
 				})
 			} catch (e) {
+				// eslint-disable-next-line no-console
 				console.error(`Parse file list item ${JSON.stringify(it || {})} error: ${e}`)
 			}
 		}

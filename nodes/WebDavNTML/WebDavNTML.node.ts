@@ -1,15 +1,15 @@
 /* eslint-disable n8n-nodes-base/node-filename-against-convention */
 import {
-	//IBinaryData,
 	IDataObject,
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
-	//NodeConnectionType,
+	NodeConnectionTypes,
 	NodeOperationError,
-} from 'n8n-workflow'
+} from 'n8n-workflow';
+
+
 import { fileFields, fileOperations } from './FileDescription'
 import { WebDavUserApi } from '../../credentials/WebDavUserApi.credentials'
 import { fileOperationHandle, folderOperationHandle, getWebDavClient } from './GenericFunctions'
@@ -64,16 +64,15 @@ export class WebDavNTML implements INodeType {
 		defaults: {
 			name: 'WebDav',
 		},
-		// eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-regular-node
-		inputs: ['main' as NodeConnectionType],
-		// eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
-		outputs: ['main' as NodeConnectionType],
+		inputs: [NodeConnectionTypes.Main],
+        outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: WebDavUserApi.CredentialName,
 				required: true,
 			},
 		],
+		usableAsTool: true,
 	}
 	// The execute method will go here
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -93,10 +92,11 @@ export class WebDavNTML implements INodeType {
 				case WebDavResource.FILE:
 					returnData.push(await fileOperationHandle(this, i, items[i], client))
 					break
-				case WebDavResource.FOLDER:
+				case WebDavResource.FOLDER: {
 					const data = await folderOperationHandle(this, i, client)
 					data.forEach((it) => returnData.push(it))
 					break
+				}
 				default:
 					throw new NodeOperationError(
 						this.getNode(),

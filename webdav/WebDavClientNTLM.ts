@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @n8n/community-nodes/no-restricted-imports */
 import IWebDavClient, { FileInfo } from './IWebDavClient'
 import httpntlm from 'httpntlm'
 import propfind from './httpntlm/propfind/propfind'

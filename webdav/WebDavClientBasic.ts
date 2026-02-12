@@ -1,3 +1,4 @@
+/* eslint-disable @n8n/community-nodes/no-restricted-imports */
 import IWebDavClient, { FileInfo } from './IWebDavClient'
 import axios, { AxiosHeaders, AxiosInstance, ResponseType } from 'axios'
 import WebDavTools from './WebDavTools'
@@ -21,7 +22,7 @@ export class WebDavClientBasic implements IWebDavClient {
 			const response = await this.instance.get(path, {
 				responseType: 'arraybuffer' as ResponseType,
 			})
-			console.log(response.data)
+			//console.log(response.data)
 			return response.data
 		} catch (error) {
 			throw new Error(`Failed to download file ${path} ${error}`)

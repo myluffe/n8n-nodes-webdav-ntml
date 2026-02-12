@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @n8n/community-nodes/no-restricted-imports */
+/* eslint-disable @typescript-eslint/no-require-imports */
 const ntlm = require('httpntlm').ntlm
 const async = require('async')
 const httpreq = require('httpreq')
-var http = require('http')
-var https = require('https')
+const http = require('http')
+const https = require('https')
 
 export default async function custommethod(method: string, options: any): Promise<any> {
 	let keepaliveAgent: any
@@ -18,7 +21,7 @@ export default async function custommethod(method: string, options: any): Promis
 		async.waterfall(
 			[
 				function (callback: any) {
-					let type1msg = ntlm.createType1Message(options)
+					const type1msg = ntlm.createType1Message(options)
 
 					httpreq.get(
 						options.url,
@@ -38,8 +41,8 @@ export default async function custommethod(method: string, options: any): Promis
 					if (!res.headers['www-authenticate'])
 						return callback(new Error('www-authenticate not found on response of second request'))
 
-					let type2msg = ntlm.parseType2Message(res.headers['www-authenticate'])
-					let type3msg = ntlm.createType3Message(type2msg, options)
+					const type2msg = ntlm.parseType2Message(res.headers['www-authenticate'])
+					const type3msg = ntlm.createType3Message(type2msg, options)
 
 					let opts = Object.assign({}, options)
 					opts = Object.assign(opts, {
@@ -52,9 +55,13 @@ export default async function custommethod(method: string, options: any): Promis
 						agent: keepaliveAgent,
 					})
 
-					setImmediate(function () {
+					/*setImmediate(function () {
 						httpreq.doRequest(opts, callback)
-					})
+					})*/
+
+					queueMicrotask(() => {
+						httpreq.doRequest(opts, callback)
+					});
 				},
 			],
 			function (err: any, res: any) {
